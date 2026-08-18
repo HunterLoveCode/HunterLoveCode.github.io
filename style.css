@@ -309,8 +309,8 @@ body::after {
   background: linear-gradient(100deg, var(--accent), var(--accent-2));
   -webkit-background-clip: text;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
-  filter: drop-shadow(0 0 8px rgba(245, 166, 35, 0.35));
 }
 
 .profile-bio {
@@ -438,21 +438,21 @@ body::after {
     transparent 0%,
     transparent 20%,
     rgba(255, 208, 138, 0.0) 25%,
-    rgba(245, 166, 35, 0.9) 28%,
-    rgba(255, 208, 138, 1) 30%,
-    rgba(245, 166, 35, 0.9) 32%,
+    rgba(245, 166, 35, 0.4) 28%,
+    rgba(255, 208, 138, 0.5) 30%,
+    rgba(245, 166, 35, 0.4) 32%,
     rgba(255, 208, 138, 0.0) 35%,
     transparent 40%,
     transparent 55%,
     rgba(255, 140, 66, 0.0) 58%,
-    rgba(255, 208, 138, 0.8) 61%,
-    rgba(245, 166, 35, 1) 63%,
-    rgba(255, 208, 138, 0.8) 65%,
+    rgba(255, 208, 138, 0.38) 61%,
+    rgba(245, 166, 35, 0.5) 63%,
+    rgba(255, 208, 138, 0.38) 65%,
     rgba(255, 140, 66, 0.0) 68%,
     transparent 72%,
     transparent 88%,
     rgba(245, 166, 35, 0.0) 91%,
-    rgba(255, 208, 138, 0.7) 94%,
+    rgba(255, 208, 138, 0.32) 94%,
     rgba(245, 166, 35, 0.0) 97%,
     transparent 100%
   );
@@ -462,7 +462,7 @@ body::after {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   z-index: -1;
-  animation: lightning-border 3s linear infinite;
+  animation: lightning-border 10s linear infinite;
 }
 
 @keyframes lightning-border {
