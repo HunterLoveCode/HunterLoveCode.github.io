@@ -29,6 +29,28 @@ navLinks.addEventListener('click', (e) => {
   }
 });
 
+// Smooth-scroll to a section on nav click and flash-glow the target panel.
+navLinks.querySelectorAll('a[href^="#"]').forEach((link) => {
+  link.addEventListener('click', (e) => {
+    const id = link.getAttribute('href').slice(1);
+    const target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+
+    const navH = nav.offsetHeight || 56;
+    const top = target.getBoundingClientRect().top + window.scrollY - navH - 12;
+    window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+
+    const focusEl = target.classList.contains('sidebar')
+      ? target.querySelector('.sidebar-card')
+      : target;
+    focusEl.classList.remove('panel-focus');
+    void focusEl.offsetWidth; // restart the animation
+    focusEl.classList.add('panel-focus');
+    setTimeout(() => focusEl.classList.remove('panel-focus'), 2200);
+  });
+});
+
 /* ── Skill filter buttons ─────────────────────────────────── */
 const filters = document.querySelectorAll('.filter');
 const skills = document.querySelectorAll('.skill');
@@ -210,11 +232,10 @@ initScene();
   dot.style.cssText = 'position:fixed;top:0;left:0;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle,rgba(255,208,138,1),rgba(245,166,35,.7) 60%,transparent 100%);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 10px rgba(245,166,35,.7),0 0 20px rgba(245,166,35,.3);transition:width .2s ease,height .2s ease,box-shadow .2s ease;';
   document.body.appendChild(dot);
 
-  let mx = 0, my = 0, px = 0, py = 0;
-
+  // No smoothing — the dot follows the pointer instantly.
   window.addEventListener('pointermove', (e) => {
-    mx = e.clientX;
-    my = e.clientY;
+    dot.style.left = e.clientX + 'px';
+    dot.style.top = e.clientY + 'px';
   }, { passive: true });
 
   document.addEventListener('mouseover', (e) => {
@@ -232,13 +253,4 @@ initScene();
 
   document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; });
   document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; });
-
-  function tick() {
-    px += (mx - px) * 0.18;
-    py += (my - py) * 0.18;
-    dot.style.left = px + 'px';
-    dot.style.top = py + 'px';
-    requestAnimationFrame(tick);
-  }
-  tick();
 })();
